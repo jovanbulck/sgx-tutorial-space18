@@ -30,6 +30,8 @@ void *page_pt = NULL;
 void fault_handler(void *base_adrs)
 {
     /* =========================== START SOLUTION =========================== */
+    info("Restoring access rights..");
+    ASSERT(!mprotect(page_pt, 4096, PROT_READ | PROT_WRITE));
     /* =========================== END SOLUTION =========================== */
 
     fault_fired++;
@@ -56,6 +58,26 @@ int main( int argc, char **argv )
     info("secure enclave converted '%s' to '%s'", TEST_STRING, string);
 
     /* =========================== START SOLUTION =========================== */
+    page_pt = s_pt + 1;
+
+    info_event("attack SECRET=0");
+    SGX_ASSERT( ecall_set_secret(eid, 0) );
+
+    ASSERT(!mprotect(page_pt, 4096, PROT_NONE));
+    fault_fired = 0;
+    SGX_ASSERT( ecall_to_lowercase(eid, s_pt) );
+    info("Reconstructed secret = %d", fault_fired ? 1 : 0);
+    ASSERT(!mprotect(page_pt, 4096, PROT_READ | PROT_WRITE));
+    
+    /* ---------------------------------------------------------------------- */
+    info_event("attack SECRET=1");
+    SGX_ASSERT( ecall_set_secret(eid, 1) );
+
+    ASSERT(!mprotect(page_pt, 4096, PROT_NONE));
+    fault_fired = 0;
+    SGX_ASSERT( ecall_to_lowercase(eid, s_pt) );
+    info("Reconstructed secret = %d", fault_fired ? 1 : 0);
+    ASSERT(!mprotect(page_pt, 4096, PROT_READ | PROT_WRITE));
     /* =========================== END SOLUTION =========================== */
     
     info_event("destroying SGX enclave");

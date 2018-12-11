@@ -81,3 +81,44 @@ learn something useful from the associated timings. First infer `secret_len`,
 before finally inferring all the `secret` bytes.  You can assume the secret PIN
 code uses only numeric digits (0-9).
 
+> The program early-outs when providing an incorrect password length. Hence, a
+> password of the correct length will take slightly longer (even if the
+> individual are still not correct).  Once the correct password length has been
+> established, every correct byte increases the execution time (extra for loop
+> iteration).  Hence, timing can be used to brute-force _individual_ PIN digits
+> one byte at a time.
+>
+> See for example the following input sequence (as measured on an Intel
+> i7-6500U CPU @ 2.50GHz):
+```
+$ gcc passwd.c -o passwd && ./passwd
+Enter super secret password ('q' to exit): 1
+    time (med clock cycles): 110
+Enter super secret password ('q' to exit): 11
+    time (med clock cycles): 108
+Enter super secret password ('q' to exit): 111
+    time (med clock cycles): 586
+Enter super secret password ('q' to exit): 211
+    time (med clock cycles): 594
+Enter super secret password ('q' to exit): 311
+    time (med clock cycles): 590
+Enter super secret password ('q' to exit): 411
+    time (med clock cycles): 584
+Enter super secret password ('q' to exit): 511
+    time (med clock cycles): 1072
+Enter super secret password ('q' to exit): 521
+    time (med clock cycles): 1582
+Enter super secret password ('q' to exit): 531
+    time (med clock cycles): 1068
+Enter super secret password ('q' to exit): 521
+    time (med clock cycles): 1572
+Enter super secret password ('q' to exit): 522
+    time (med clock cycles): 1608
+Enter super secret password ('q' to exit): 523
+    time (med clock cycles): 1578
+Enter super secret password ('q' to exit): 524
+    time (med clock cycles): 2028
+Enter super secret password ('q' to exit): 524
+    time (med clock cycles): 2030
+Enter super secret password ('q' to exit): q
+```

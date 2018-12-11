@@ -61,9 +61,6 @@ int main( int argc, char **argv )
     int rv = 1, secret = 0;
     char *pwd;
     int j, tsc1, tsc2, med, allowed = 0;
-
-    /* Example SGX enclave ecall invocation */
-    SGX_ASSERT( ecall_dummy(eid, &rv, 1) );
     
     /* ---------------------------------------------------------------------- */
     while ((pwd = read_from_user()) && strcmp(pwd, "q"))
@@ -74,6 +71,7 @@ int main( int argc, char **argv )
     {
         tsc1 = rdtsc_begin();
         /* =========================== START SOLUTION =========================== */
+        SGX_ASSERT( ecall_get_secret(eid, &allowed, &secret, pwd) );
         /* ============================ END SOLUTION ============================ */
         tsc2 = rdtsc_end();
 

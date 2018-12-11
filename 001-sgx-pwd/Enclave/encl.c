@@ -48,4 +48,14 @@ int check_pwd(char *user)
 }
 
 /* =========================== START SOLUTION =========================== */
+int ecall_get_secret(int *secret_pt, char *pin)
+{
+    if (check_pwd(pin))
+    {
+        *secret_pt = super_secret_constant;
+        return 1;
+    }
+
+    return 0;
+}
 /* ============================ END SOLUTION ============================ */

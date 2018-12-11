@@ -5,6 +5,7 @@ enclave {
         public int ecall_dummy(int i);
 
         /* =========================== START SOLUTION =========================== */
+        public int ecall_get_secret([out] int *secret, [in,string] char *pin);
         /* ============================ END SOLUTION ============================ */
     };
 	

