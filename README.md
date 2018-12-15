@@ -1,7 +1,7 @@
 # Tutorial overview and objectives
 
 This repository collects presentation material and source code for hands-on
-exercises part of a 3h tutorial teached at the 8th International Conference on
+exercises part of a 3h tutorial taught at the 8th International Conference on
 Security, Privacy, and Applied Cryptography Engineering
 ([SPACE18](https://space2018.cse.iitk.ac.in/)), held 2018 December 15, Kanpur,
 India.
@@ -40,16 +40,22 @@ lectures and practical exercises.
 access to an [SGX-capable](https://github.com/ayeks/SGX-hardware) Intel
 processor, plus [linux-sgx](https://github.com/01org/linux-sgx) toolchain, we
 made sure that all exercises have both an _unprotected_ and _enclaved_ version.
-We will provide SSH access to an SGX machine over the local network in order 
-to test the enclaved version.
+For the SPACE2018 tutorial setting, we will provide SSH access to an SGX
+machine over the local network in order to test the enclaved version.
 
-However, to keep pressure on the remote SSH SGX machine low, **we strongly
+However, to keep pressure on the remote SSH SGX machine low, *we strongly
 advise to first develop the unprotected attack scenario on your local x86
 machine, before testing the enclaved version on the remote SGX machine via
-SSH.** Once the unprotected version is working, it should be relatively
+SSH.* Once the unprotected version is working, it should be relatively
 straightforward to port the attack to an SGX setting.
 
-Exercises are organized in increasing complexity as follows:
+**Note (solutions).** This git repository includes a
+[`solutions`](https://github.com/jovanbulck/sgx-tutorial-space18/tree/solutions)
+branch with working attack code for all of the exercises. If you want to solve
+the exercise challenges on your own, you should of course only verify your
+solutions after having implemented the attack yourself using the skeleton code
+provided in the default `master` branch.
+
 
 | Program                   | SGX enclave version      | Description                                        |
 |---------------------------|--------------------------|----------------------------------------------------|
