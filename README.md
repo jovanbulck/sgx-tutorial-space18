@@ -64,3 +64,12 @@ provided in the default `master` branch.
 | **003-flush-and-reload**  | 003-sgx-flush-and-reload | Flush+Reload _cache_ attack on unprotected memory. |
 | **004-str**               | 004-sgx-str              | More subtle _page fault_ side-channel attack.      |
 | **005-rsa**               | 005-sgx-rsa              | Page _fault sequence_ side-channel attack.         |
+
+## License
+
+You are welcome to re-use all of the material in this repository for your own
+teaching (given appropriate credit). All exercise code is free software,
+licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0).
+Presentation material (slides) are released on a
+[CC-BY](https://creativecommons.org/licenses/by/4.0/) basis. 
+
