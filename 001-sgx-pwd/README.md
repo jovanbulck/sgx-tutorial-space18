@@ -56,9 +56,7 @@ PIN code from the end user. You will thus have to:
 ### Extending enclave implementation (`Enclave/encl.c`)
 
 After defining the enclave's interface, you will have to implement the required
-ECALL functionality. Implement the `int ecall_get_secret(int *secret_pt)`
-function by making use of the `int ocall_get_pin(char *)` untrusted helper
-function. Take care to ensure that:
+ECALL functionality. Implement the `int ecall_get_secret(int *secret_pt, char* pin)` untrusted helper function. Take care to ensure that:
 
 - The enclave only writes `super_secret_constant` to `secret_pt` when the
   untrusted user-provided PIN code exactly matches `SECRET_PIN` of length
@@ -68,7 +66,7 @@ function. Take care to ensure that:
 
 Finally, after finishing the trusted enclave's implementation, you have to
 extend the untrusted runtime support system. We already provided the enclave
-creation code, `ocall_get_pin` function, and an example `ecall_dummy()` enclave
+creation code and an example `ecall_dummy()` enclave
 function call. Now, add the `ecall_get_secret()` enclave function call, and
 print out the return value and secret returned by the trusted enclave.
 
